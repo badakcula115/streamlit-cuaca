@@ -1,29 +1,23 @@
-from flask import Flask, render_template, request
+import streamlit as st
 import joblib
 
-# Inisialisasi Flask app
-app = Flask(__name__)
-
-# Load model
+# Muat model
 model = joblib.load('model.pkl')
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    prediction = None
-    if request.method == "POST":
-        try:
-            # Ambil data dari form
-            suhu = float(request.form["Suhu_Rata_rata"])
-            kelembaban = float(request.form["Kelembaban_Relatif_Rata_rata"])
-            curah_hujan = float(request.form["Curah_Hujan"])
-            kecepatan_angin = float(request.form["Kecepatan_Angin_dalam_meter_per_detik"])
-            
-            # Lakukan prediksi
-            prediction = model.predict([[suhu, kelembaban, curah_hujan, kecepatan_angin]])[0]
-            prediction = "Hujan" if prediction == 1 else "Tidak Hujan"
-        except Exception as e:
-            prediction = f"Terjadi kesalahan: {e}"
+# Judul Aplikasi
+st.title("Prediksi Cuaca dengan Machine Learning")
 
-    return render_template("index.html", prediction=prediction)
+# Input dari Pengguna
+suhu = st.number_input("Suhu Rata-rata", value=25.0)
+kelembaban = st.number_input("Kelembaban Relatif Rata-rata", value=70.0)
+curah_hujan = st.number_input("Curah Hujan", value=5.0)
+kecepatan_angin = st.number_input("Kecepatan Angin (m/s)", value=3.0)
 
-
+# Tombol Prediksi
+if st.button("Prediksi"):
+    try:
+        prediction = model.predict([[suhu, kelembaban, curah_hujan, kecepatan_angin]])[0]
+        hasil = "Hujan" if prediction == 1 else "Tidak Hujan"
+        st.success(f"Hasil Prediksi: {hasil}")
+    except Exception as e:
+        st.error(f"Terjadi kesalahan: {e}")
