@@ -2,4 +2,9 @@ streamlit==1.35.0
 joblib==1.4.2
 scikit-learn==1.6.0
 pandas==2.2.3
-numpy==2.2.0
+numpy==1.26.4  # Gunakan versi ini untuk kompatibilitas
+python-dateutil==2.9.0.post0
+pytz==2024.2
+tzdata==2024.2
+matplotlib==3.8.4  # Versi yang lebih stabil
+seaborn==0.13.2
