@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Prediksi Cuaca</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-image: url('/static/images/cuaca.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aplikasi Prediksi Cuaca</h1>
+        <form method="POST">
+            <input type="number" name="Suhu_Rata_rata" placeholder="Suhu Rata-rata" step="any" required>
+            <input type="number" name="Kelembaban_Relatif_Rata_rata" placeholder="Kelembaban Relatif Rata-rata" step="any" required>
+            <input type="number" name="Curah_Hujan" placeholder="Curah Hujan" step="any" required>
+            <input type="number" name="Kecepatan_Angin_dalam_meter_per_detik" placeholder="Kecepatan Angin (m/s)" step="any" required>
+            <button type="submit">Prediksi</button>
+        </form>
+        {% if prediction %}
+        <div>
+            <h2>Hasil Prediksi:</h2>
+            <p>{{ prediction }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
